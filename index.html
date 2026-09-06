@@ -15,6 +15,8 @@
 .page{display:none}.page.active{display:block}.form{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}.form input,.form select{padding:12px;border:1px solid #d8e0ec;border-radius:9px;width:100%}.primary{background:#1759ea;color:#fff;border:0;border-radius:9px;padding:12px 18px;font-weight:700;cursor:pointer}
 .panel button{cursor:pointer;border:1px solid #d8e0ec;border-radius:7px;padding:7px 10px;background:#fff}
 @media(max-width:1000px){.cards{grid-template-columns:repeat(2,1fr)}.content{grid-template-columns:1fr}.quick{grid-template-columns:repeat(2,1fr)}}@media(max-width:700px){.sidebar{width:72px}.logo{font-size:0}.logo span{font-size:20px}.nav button{font-size:0;text-align:center}.nav button:first-letter{font-size:20px}.main{margin-left:72px;width:calc(100% - 72px);padding:12px}.cards{grid-template-columns:1fr 1fr}.top h1{font-size:21px}.actions{display:none}.form{grid-template-columns:1fr}}
+
+.customer-suggest{position:relative}.customer-suggest select{width:100%;padding:12px;border:1px solid #d8e0ec;border-radius:9px;background:#fff}.invoice-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}.invoice-actions button{padding:10px 14px;border-radius:9px}.muted{color:#6c7890;font-size:13px}.success{color:#19864a}.danger{color:#c62828}.mini{font-size:12px}.service-grid{display:grid;grid-template-columns:1fr 120px 120px;gap:10px;align-items:end}.service-grid input{padding:12px;border:1px solid #d8e0ec;border-radius:9px}.settings-note{background:#f4f7ff;padding:12px;border-radius:9px;font-size:13px}.bill-number{font-weight:800;color:#1759ea}
 </style>
 </head>
 <body>
@@ -61,27 +63,26 @@
 </section>
 
 <section id="customers" class="page">
-<div class="panel"><h2>👥 Customers</h2><div class="form"><input id="cname" placeholder="Customer name"><input id="cphone" placeholder="Mobile number"></div><br><button class="primary" onclick="addCustomer()">Add Customer</button><br><br><table class="table"><thead><tr><th>Name</th><th>Mobile</th></tr></thead><tbody id="customerRows"></tbody></table></div>
+<div class="panel"><h2>👥 Customers</h2><div class="form"><input id="cname" placeholder="Customer name"><input id="cphone" placeholder="Mobile number"><input id="caddress" placeholder="Address"></div><br><button class="primary" onclick="addCustomer()">Add Customer</button><br><br><input id="customerSearch" oninput="renderCustomers()" placeholder="Search customer..." style="padding:12px;border:1px solid #d8e0ec;border-radius:9px;width:100%;margin-bottom:12px"><table class="table"><thead><tr><th>Name</th><th>Mobile</th><th>Address</th><th>Action</th></tr></thead><tbody id="customerRows"></tbody></table></div>
 </section>
 
 <section id="billing" class="page">
 <div class="panel"><h2>🧾 Create New Bill</h2>
-<div class="form"><input id="bname" placeholder="Customer name"><input id="bphone" placeholder="Mobile number">
-<input id="bservice" placeholder="Service"><input id="bamount" type="number" placeholder="Amount ₹">
-<select id="bpay"><option>Cash</option><option>UPI</option><option>Card</option></select><input id="bnote" placeholder="Note (optional)">
-</div><br><button class="primary" onclick="createBill()">Generate Bill</button>
+<div class="customer-suggest"><label class="muted">Select existing customer (optional)</label><select id="customerSelect" onchange="fillCustomer()"><option value="">Walk-in / New Customer</option></select></div><br>
+<div class="form"><input id="bname" placeholder="Customer name"><input id="bphone" placeholder="Mobile number"><input id="baddress" placeholder="Address"><input id="bservice" placeholder="Service"><input id="bamount" type="number" min="0" step="0.01" placeholder="Amount ₹"><select id="bpay"><option>Cash</option><option>UPI</option><option>Card</option><option>Other</option></select><input id="bnote" placeholder="Note (optional)"></div><br>
+<button class="primary" onclick="createBill()">Generate Bill</button>
 <div id="billMsg"></div></div>
 </section>
 
-<section id="services" class="page"><div class="panel"><h2>🛠️ Services</h2><table class="table"><tr><th>Service</th><th>Price</th></tr><tr><td>Aadhaar Services</td><td>₹50</td></tr><tr><td>PAN Card</td><td>₹100</td></tr><tr><td>EPIC / Voter ID</td><td>₹50</td></tr><tr><td>Print / Scan</td><td>₹10</td></tr><tr><td>Online Form</td><td>₹50</td></tr></table></div></section>
+<section id="services" class="page"><div class="panel"><h2>🛠️ Services</h2><p class="muted">Tap a service to use its price in a new bill.</p><table class="table"><tr><th>Service</th><th>Price</th><th></th></tr><tr><td>Aadhaar Services</td><td>₹50</td><td><button onclick="useService('Aadhaar Services',50)">Use</button></td></tr><tr><td>PAN Card</td><td>₹100</td><td><button onclick="useService('PAN Card',100)">Use</button></td></tr><tr><td>EPIC / Voter ID</td><td>₹50</td><td><button onclick="useService('EPIC / Voter ID',50)">Use</button></td></tr><tr><td>Print / Scan</td><td>₹10</td><td><button onclick="useService('Print / Scan',10)">Use</button></td></tr><tr><td>Online Form</td><td>₹50</td><td><button onclick="useService('Online Form',50)">Use</button></td></tr></table></div></section>
 
 <section id="history" class="page"><div class="panel"><h2>🕐 Billing History</h2>
 <input id="historySearch" oninput="renderHistory()" placeholder="Search customer/service..." style="padding:12px;border:1px solid #d8e0ec;border-radius:9px;width:100%;margin-bottom:12px">
 <table class="table"><thead><tr><th>Date</th><th>Customer</th><th>Service</th><th>Amount</th><th>Action</th></tr></thead><tbody id="historyRows"></tbody></table></div></section>
 
-<section id="reports" class="page"><div class="panel"><h2>📊 Reports</h2><p>Total income: <b>₹<span id="reportIncome">0</span></b></p><p>Total bills: <b id="reportBills">0</b></p></div></section>
+<section id="reports" class="page"><div class="panel"><h2>📊 Reports</h2><p>Total income: <b>₹<span id="reportIncome">0</span></b></p><p>Total bills: <b id="reportBills">0</b></p><p>Today: <b>₹<span id="reportToday">0</span></b> &nbsp; | &nbsp; This month: <b>₹<span id="reportMonth">0</span></b></p></div></section>
 
-<section id="settings" class="page"><div class="panel"><h2>⚙️ Shop Settings</h2><div class="form"><input value="Nexa Computer" placeholder="Shop name"><input placeholder="Mobile number"><input placeholder="Address"><input id="shopGST" placeholder="GST number"><input id="upiId" placeholder="UPI ID e.g. nexacomputer@upi"><input id="upiName" value="Nexa Computer" placeholder="UPI display name"></div><br><button class="primary" onclick="saveSettings()">Save Settings</button><p id="settingsMsg"></p></div></section>
+<section id="settings" class="page"><div class="panel"><h2>⚙️ Shop Settings</h2><div class="form"><input id="shopName" value="Nexa Computer" placeholder="Shop name"><input id="shopPhone" placeholder="Mobile number"><input id="shopAddress" placeholder="Address"><input id="shopGST" placeholder="GST number"><input id="upiId" placeholder="UPI ID e.g. nexacomputer@upi"><input id="upiName" value="Nexa Computer" placeholder="UPI display name"></div><br><div class="settings-note">💡 Invoice mein shop details aur UPI QR tab dikhega jab yahan details save karoge.</div><br><button class="primary" onclick="saveSettings()">Save Settings</button><p id="settingsMsg"></p></div></section>
 </main>
 </div>
 
@@ -90,47 +91,28 @@ let bills=JSON.parse(localStorage.getItem('nexaBills')||'[]');
 let customers=JSON.parse(localStorage.getItem('nexaCustomers')||'[]');
 let settings=JSON.parse(localStorage.getItem('nexaSettings')||'{}');
 function showPage(id,btn){document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));document.getElementById(id).classList.add('active');document.querySelectorAll('.nav button').forEach(x=>x.classList.remove('active'));if(btn)btn.classList.add('active');render();}
-function addCustomer(){let n=document.getElementById('cname').value.trim(),p=document.getElementById('cphone').value.trim();if(!n)return alert('Customer name enter karein');customers.push({n,p});localStorage.setItem('nexaCustomers',JSON.stringify(customers));document.getElementById('cname').value='';document.getElementById('cphone').value='';render();}
-function createBill(){
-let n=document.getElementById('bname').value.trim()||'Walk-in Customer',
-phone=document.getElementById('bphone').value.trim(),
-s=document.getElementById('bservice').value.trim(),
-a=Number(document.getElementById('bamount').value),
-pay=document.getElementById('bpay').value,
-note=document.getElementById('bnote').value.trim();
-if(!s||!a)return alert('Service aur amount enter karein');
-let bill={id:Date.now(),date:new Date().toLocaleString('en-IN'),n,phone,s,a,pay,note};
-bills.push(bill);localStorage.setItem('nexaBills',JSON.stringify(bills));
-document.getElementById('billMsg').innerHTML='<p class="badge">Bill generated successfully ✓</p> <button class="primary" onclick="printBill('+bill.id+')">🖨️ Print Invoice</button>';
-render();
-}
-function render(){let total=bills.reduce((x,b)=>x+b.a,0);document.getElementById('income').textContent=total;document.getElementById('monthly').textContent=total;document.getElementById('bills').textContent=bills.length;document.getElementById('customersCount').textContent=customers.length;document.getElementById('reportIncome').textContent=total;document.getElementById('reportBills').textContent=bills.length;
-document.getElementById('customerRows').innerHTML=customers.map(c=>`<tr><td>${c.n}</td><td>${c.p}</td></tr>`).join('');
-renderHistory();
-document.getElementById('topServices').textContent=bills.length?bills[bills.length-1].s:'No billing data yet.'}
-function renderHistory(){
-let q=(document.getElementById('historySearch')?.value||'').toLowerCase();
-let rows=bills.slice().reverse().filter(b=>(b.n+' '+b.s+' '+(b.phone||'')).toLowerCase().includes(q));
-document.getElementById('historyRows').innerHTML=rows.map(b=>`<tr><td>${b.date}</td><td>${b.n}</td><td>${b.s}</td><td>₹${b.a}</td><td><button onclick="printBill(${b.id})">🖨️</button> <button onclick="deleteBill(${b.id})">🗑️</button></td></tr>`).join('');
-}
+function addCustomer(){let n=document.getElementById('cname').value.trim(),p=document.getElementById('cphone').value.trim(),ad=document.getElementById('caddress').value.trim();if(!n)return alert('Customer name enter karein');customers.push({id:Date.now(),n,p,ad});localStorage.setItem('nexaCustomers',JSON.stringify(customers));document.getElementById('cname').value='';document.getElementById('cphone').value='';document.getElementById('caddress').value='';render();}
+function deleteCustomer(id){if(!confirm('Delete this customer?'))return;customers=customers.filter(c=>c.id!==id);localStorage.setItem('nexaCustomers',JSON.stringify(customers));render();}
+function renderCustomers(){let q=(document.getElementById('customerSearch')?.value||'').toLowerCase();let rows=customers.filter(c=>(c.n+' '+c.p+' '+(c.ad||'')).toLowerCase().includes(q));document.getElementById('customerRows').innerHTML=rows.map(c=>`<tr><td>${esc(c.n)}</td><td>${esc(c.p||'-')}</td><td>${esc(c.ad||'-')}</td><td><button onclick="deleteCustomer(${c.id})">🗑️</button></td></tr>`).join('');}
+function renderCustomerSelect(){let el=document.getElementById('customerSelect');if(!el)return;el.innerHTML='<option value="">Walk-in / New Customer</option>'+customers.map(c=>`<option value="${c.id}">${esc(c.n)}${c.p?' — '+esc(c.p):''}</option>`).join('');}
+function fillCustomer(){let id=Number(document.getElementById('customerSelect').value);let c=customers.find(x=>x.id===id);if(!c)return;document.getElementById('bname').value=c.n;document.getElementById('bphone').value=c.p||'';document.getElementById('baddress').value=c.ad||'';}
+function useService(name,price){showPage('billing');document.getElementById('bservice').value=name;document.getElementById('bamount').value=price;}
+function nextInvoiceNo(){let num=Number(localStorage.getItem('nexaInvoiceNo')||0)+1;localStorage.setItem('nexaInvoiceNo',String(num));return 'NEXA-'+String(num).padStart(4,'0');}
+function createBill(){let n=document.getElementById('bname').value.trim()||'Walk-in Customer',phone=document.getElementById('bphone').value.trim(),address=document.getElementById('baddress').value.trim(),s=document.getElementById('bservice').value.trim(),a=Number(document.getElementById('bamount').value),pay=document.getElementById('bpay').value,note=document.getElementById('bnote').value.trim();if(!s||!a||a<0)return alert('Service aur valid amount enter karein');let bill={id:Date.now(),invoice:nextInvoiceNo(),date:new Date().toISOString(),n,phone,address,s,a,pay,note};bills.push(bill);localStorage.setItem('nexaBills',JSON.stringify(bills));document.getElementById('billMsg').innerHTML=`<p class="badge">${bill.invoice} — Bill generated successfully ✓</p><div class="invoice-actions"><button class="primary" onclick="printBill(${bill.id})">🖨️ Print / Save PDF</button><button onclick="shareWhatsApp(${bill.id})">📱 WhatsApp</button><button onclick="showPage('history')">🕐 History</button></div>`;['bname','bphone','baddress','bservice','bamount','bnote'].forEach(id=>document.getElementById(id).value='');document.getElementById('customerSelect').value='';render();}
+function todayTotal(){let d=new Date(),k=d.toLocaleDateString('en-IN');return bills.filter(b=>new Date(b.date).toLocaleDateString('en-IN')===k).reduce((x,b)=>x+b.a,0);}
+function monthTotal(){let d=new Date();return bills.filter(b=>{let x=new Date(b.date);return x.getMonth()===d.getMonth()&&x.getFullYear()===d.getFullYear()}).reduce((x,b)=>x+b.a,0);}
+function render(){let total=bills.reduce((x,b)=>x+b.a,0),today=todayTotal(),month=monthTotal();document.getElementById('income').textContent=today;document.getElementById('monthly').textContent=month;document.getElementById('bills').textContent=bills.filter(b=>new Date(b.date).toLocaleDateString('en-IN')===new Date().toLocaleDateString('en-IN')).length;document.getElementById('customersCount').textContent=customers.length;document.getElementById('reportIncome').textContent=total;document.getElementById('reportBills').textContent=bills.length;document.getElementById('reportToday').textContent=today;document.getElementById('reportMonth').textContent=month;renderCustomers();renderCustomerSelect();renderHistory();document.getElementById('topServices').textContent=bills.length?bills[bills.length-1].s:'No billing data yet.';loadSettings();}
+function renderHistory(){let q=(document.getElementById('historySearch')?.value||'').toLowerCase();let rows=bills.slice().reverse().filter(b=>(b.n+' '+b.s+' '+(b.phone||'')+' '+b.invoice).toLowerCase().includes(q));document.getElementById('historyRows').innerHTML=rows.map(b=>`<tr><td>${new Date(b.date).toLocaleString('en-IN')}</td><td><span class="bill-number">${b.invoice}</span><br>${esc(b.n)}</td><td>${esc(b.s)}</td><td>₹${b.a}</td><td><button onclick="printBill(${b.id})">🖨️</button> <button onclick="deleteBill(${b.id})">🗑️</button></td></tr>`).join('');}
 function deleteBill(id){if(!confirm('Delete this bill?'))return;bills=bills.filter(b=>b.id!==id);localStorage.setItem('nexaBills',JSON.stringify(bills));render();}
-function printBill(id){
-let b=bills.find(x=>x.id===id); if(!b)return;
-let win=window.open('','_blank','width=800,height=900');
-win.document.write(`<html><head><title>Nexa Computer Invoice</title><style>
-body{font-family:Arial;padding:35px;color:#172033} .invoice{max-width:700px;margin:auto;border:1px solid #ddd;padding:30px}
-h1{margin:0;color:#1759ea}.head{display:flex;justify-content:space-between;border-bottom:2px solid #1759ea;padding-bottom:20px}
-table{width:100%;border-collapse:collapse;margin-top:25px}td,th{padding:12px;border-bottom:1px solid #ddd;text-align:left}
-.total{text-align:right;font-size:22px;font-weight:bold;margin-top:20px}.qr{text-align:center;margin-top:25px;font-size:12px}
-</style></head><body><div class="invoice"><div class="head"><div><h1>NEXA COMPUTER</h1><p>Computer & Online Services</p></div><div><b>INVOICE</b><br>${b.date}</div></div>
-<p><b>Customer:</b> ${b.n}<br><b>Mobile:</b> ${b.phone||'-'}</p>
-<table><tr><th>Service</th><th>Payment</th><th>Amount</th></tr><tr><td>${b.s}</td><td>${b.pay}</td><td>₹${b.a}</td></tr></table>
-<div class="total">Total: ₹${b.a}</div><p>${b.note||''}</p><div class="qr">UPI / QR PAYMENT<br><br>Scan with your UPI app</div>
-<p style="text-align:center;margin-top:35px">Thank you for visiting Nexa Computer</p></div><script>window.print()<\/script></body></html>`);
-win.document.close();
-}
-function toggleDark(){document.body.style.background=document.body.style.background==='#111827'?'#f3f6fb':'#111827';document.body.style.color=document.body.style.color==='white'?'#18233a':'white';document.querySelectorAll('.panel,.card').forEach(x=>{x.style.background=x.style.background==='rgb(31, 41, 55)'?'#fff':'#1f2937'});}
+function shareWhatsApp(id){let b=bills.find(x=>x.id===id);if(!b)return;let text=`Nexa Computer Invoice %0AInvoice: ${b.invoice}%0ACustomer: ${b.n}%0AService: ${b.s}%0AAmount: ₹${b.a}%0APayment: ${b.pay}%0AThank you for visiting Nexa Computer.`;window.open('https://wa.me/?text='+text,'_blank');}
+function printBill(id){let b=bills.find(x=>x.id===id);if(!b)return;let shop=settings.shopName||'Nexa Computer',phone=settings.shopPhone||'',address=settings.shopAddress||'',gst=settings.shopGST||'',upi=settings.upiId||'',upiName=settings.upiName||shop;let qr=upi?`<img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent('upi://pay?pa='+upi+'&pn='+upiName+'&am='+b.a+'&cu=INR')}" style="width:150px;height:150px" alt="UPI QR">`:'<div>UPI / QR PAYMENT</div>';let win=window.open('','_blank','width=800,height=900');win.document.write(`<html><head><title>${b.invoice} - ${shop}</title><style>body{font-family:Arial;padding:35px;color:#172033}.invoice{max-width:700px;margin:auto;border:1px solid #ddd;padding:30px}h1{margin:0;color:#1759ea}.head{display:flex;justify-content:space-between;border-bottom:2px solid #1759ea;padding-bottom:20px}table{width:100%;border-collapse:collapse;margin-top:25px}td,th{padding:12px;border-bottom:1px solid #ddd;text-align:left}.total{text-align:right;font-size:22px;font-weight:bold;margin-top:20px}.qr{text-align:center;margin-top:25px;font-size:12px}</style></head><body><div class="invoice"><div class="head"><div><h1>${shop}</h1><p>Computer & Online Services</p><p>${phone}<br>${address}${gst?'<br>GST: '+gst:''}</p></div><div><b>INVOICE</b><br><b>${b.invoice}</b><br>${new Date(b.date).toLocaleString('en-IN')}</div></div><p><b>Customer:</b> ${esc(b.n)}<br><b>Mobile:</b> ${esc(b.phone||'-')}<br><b>Address:</b> ${esc(b.address||'-')}</p><table><tr><th>Service</th><th>Payment</th><th>Amount</th></tr><tr><td>${esc(b.s)}</td><td>${esc(b.pay)}</td><td>₹${b.a}</td></tr></table><div class="total">Total: ₹${b.a}</div><p>${esc(b.note||'')}</p><div class="qr">${qr}<br>${upi?'Scan to pay via UPI':'UPI QR not configured'}</div><p style="text-align:center;margin-top:35px">Thank you for visiting ${shop}</p></div><script>window.print()<\/script></body></html>`);win.document.close();}
+function saveSettings(){settings={shopName:document.getElementById('shopName').value.trim()||'Nexa Computer',shopPhone:document.getElementById('shopPhone').value.trim(),shopAddress:document.getElementById('shopAddress').value.trim(),shopGST:document.getElementById('shopGST').value.trim(),upiId:document.getElementById('upiId').value.trim(),upiName:document.getElementById('upiName').value.trim()||'Nexa Computer'};localStorage.setItem('nexaSettings',JSON.stringify(settings));document.getElementById('settingsMsg').innerHTML='<span class="success">Settings saved ✓</span>';setTimeout(()=>document.getElementById('settingsMsg').textContent='',2500);}
+function loadSettings(){for(let id of ['shopName','shopPhone','shopAddress','shopGST','upiId','upiName']){let key=id==='shopName'?'shopName':id==='shopPhone'?'shopPhone':id==='shopAddress'?'shopAddress':id==='shopGST'?'shopGST':id;if(document.getElementById(id)&&settings[key]!=null)document.getElementById(id).value=settings[key];}}
+function esc(v){return String(v??'').replace(/[&<>'"]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','\"':'&quot;'}[m]));}
+function toggleDark(){let dark=document.body.dataset.dark!=='1';document.body.dataset.dark=dark?'1':'0';document.body.style.background=dark?'#111827':'#f3f6fb';document.body.style.color=dark?'white':'#18233a';document.querySelectorAll('.panel,.card').forEach(x=>x.style.background=dark?'#1f2937':'#fff');}
+function login(){if(document.getElementById('loginUser').value==='admin'&&document.getElementById('loginPass').value==='1234'){document.getElementById('loginGate').style.display='none';localStorage.setItem('nexaLoggedIn','1')}else alert('Wrong username or password')}
+if(localStorage.getItem('nexaLoggedIn')==='1')document.getElementById('loginGate').style.display='none';
 render();
-function login(){if(document.getElementById('loginUser').value==='admin'&&document.getElementById('loginPass').value==='1234'){document.getElementById('loginGate').style.display='none';localStorage.setItem('nexaLoggedIn','1')}else alert('Wrong username or password')}if(localStorage.getItem('nexaLoggedIn')==='1')document.getElementById('loginGate').style.display='none';</script>
+</script>
 </body>
 </html>
