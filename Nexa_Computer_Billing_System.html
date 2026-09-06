@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nexa Computer — Billing System</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:Inter,Arial,sans-serif;background:#f3f6fb;color:#18233a}
+.app{display:flex;min-height:100vh}.sidebar{width:240px;background:#101a35;color:#fff;padding:22px 16px;position:fixed;inset:0 auto 0 0}
+.logo{font-size:22px;font-weight:800;padding:8px 12px 28px}.logo span{color:#49a6ff}
+.nav{display:grid;gap:8px}.nav button{border:0;background:transparent;color:#c9d3e7;text-align:left;padding:13px 14px;border-radius:10px;font-size:15px;cursor:pointer}.nav button:hover,.nav button.active{background:#1e51d8;color:white}
+.main{margin-left:240px;width:calc(100% - 240px);padding:24px}.top{background:linear-gradient(120deg,#174ee8,#246cff);color:#fff;border-radius:18px;padding:25px 28px;display:flex;justify-content:space-between;align-items:center;box-shadow:0 10px 25px #174ee82b}.top h1{margin:0 0 6px;font-size:28px}.top p{margin:0;opacity:.9}.actions button{border:0;border-radius:10px;padding:11px 15px;margin-left:8px;cursor:pointer;font-weight:700}.dark{background:#173a9f;color:#fff}
+.cards{display:grid;grid-template-columns:repeat(5,1fr);gap:15px;margin:20px 0}.card,.panel{background:#fff;border-radius:15px;padding:18px;box-shadow:0 4px 16px #13203d0d}.card small{color:#6c7890}.card strong{display:block;font-size:23px;margin-top:8px}.blue{border-left:5px solid #2764ef}.green{border-left:5px solid #2fbf71}.purple{border-left:5px solid #8a54e8}.orange{border-left:5px solid #f2a62b}.red{border-left:5px solid #ef5661}
+.content{display:grid;grid-template-columns:2fr 1fr;gap:20px}.panel h2{margin:0 0 16px;font-size:18px}.quick{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.quick button{padding:22px 10px;border:1px solid #dbe3f1;background:#f9fbff;border-radius:12px;cursor:pointer;font-weight:700;color:#26334d}.quick button:hover{background:#edf3ff}.table{width:100%;border-collapse:collapse}.table th,.table td{text-align:left;padding:12px;border-bottom:1px solid #edf0f5;font-size:14px}.badge{padding:5px 9px;border-radius:20px;background:#e7f8ee;color:#19864a;font-size:12px}
+.page{display:none}.page.active{display:block}.form{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}.form input,.form select{padding:12px;border:1px solid #d8e0ec;border-radius:9px;width:100%}.primary{background:#1759ea;color:#fff;border:0;border-radius:9px;padding:12px 18px;font-weight:700;cursor:pointer}
+.panel button{cursor:pointer;border:1px solid #d8e0ec;border-radius:7px;padding:7px 10px;background:#fff}
+@media(max-width:1000px){.cards{grid-template-columns:repeat(2,1fr)}.content{grid-template-columns:1fr}.quick{grid-template-columns:repeat(2,1fr)}}@media(max-width:700px){.sidebar{width:72px}.logo{font-size:0}.logo span{font-size:20px}.nav button{font-size:0;text-align:center}.nav button:first-letter{font-size:20px}.main{margin-left:72px;width:calc(100% - 72px);padding:12px}.cards{grid-template-columns:1fr 1fr}.top h1{font-size:21px}.actions{display:none}.form{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div id="loginGate" style="position:fixed;inset:0;background:#101a35;display:flex;align-items:center;justify-content:center;z-index:9999">
+<div style="background:white;padding:30px;border-radius:18px;width:min(92%,380px);text-align:center">
+<h1 style="color:#1759ea">NEXA COMPUTER</h1><p>Billing System Login</p>
+<input id="loginUser" value="admin" placeholder="Username" style="width:100%;padding:12px;margin:6px 0">
+<input id="loginPass" type="password" value="1234" placeholder="Password" style="width:100%;padding:12px;margin:6px 0">
+<button class="primary" style="width:100%;margin-top:10px" onclick="login()">Login</button>
+<small>Demo: admin / 1234</small></div></div>
+<div class="app">
+<aside class="sidebar">
+  <div class="logo">NEXA <span>COMPUTER</span></div>
+  <div class="nav">
+    <button class="active" onclick="showPage('dashboard',this)">🏠 Dashboard</button>
+    <button onclick="showPage('customers',this)">👥 Customers</button>
+    <button onclick="showPage('billing',this)">🧾 Billing</button>
+    <button onclick="showPage('services',this)">🛠️ Services</button>
+    <button onclick="showPage('history',this)">🕐 History</button>
+    <button onclick="showPage('reports',this)">📊 Reports</button>
+    <button onclick="showPage('settings',this)">⚙️ Settings</button>
+  </div>
+</aside>
+
+<main class="main">
+<section id="dashboard" class="page active">
+  <div class="top"><div><h1>Nexa Computer Billing System</h1><p>Professional billing & customer management</p></div><div class="actions"><button class="dark" onclick="toggleDark()">🌙 Dark Mode</button><button onclick="showPage('billing')">+ New Bill</button></div></div>
+  <div class="cards">
+    <div class="card blue"><small>Today's Income</small><strong>₹<span id="income">0</span></strong></div>
+    <div class="card green"><small>Today's Bills</small><strong id="bills">0</strong></div>
+    <div class="card purple"><small>Customers</small><strong id="customersCount">0</strong></div>
+    <div class="card orange"><small>Services</small><strong>10</strong></div>
+    <div class="card red"><small>Monthly Income</small><strong>₹<span id="monthly">0</span></strong></div>
+  </div>
+  <div class="content">
+    <div class="panel"><h2>⚡ Quick Actions</h2><div class="quick">
+      <button onclick="showPage('billing')">➕<br>New Bill</button>
+      <button onclick="showPage('customers')">👤<br>Add Customer</button>
+      <button onclick="showPage('services')">🛠️<br>Manage Services</button>
+      <button onclick="showPage('settings')">🎨<br>Invoice Settings</button>
+    </div></div>
+    <div class="panel"><h2>🏆 Top Services</h2><p id="topServices">No billing data yet.</p></div>
+  </div>
+</section>
+
+<section id="customers" class="page">
+<div class="panel"><h2>👥 Customers</h2><div class="form"><input id="cname" placeholder="Customer name"><input id="cphone" placeholder="Mobile number"></div><br><button class="primary" onclick="addCustomer()">Add Customer</button><br><br><table class="table"><thead><tr><th>Name</th><th>Mobile</th></tr></thead><tbody id="customerRows"></tbody></table></div>
+</section>
+
+<section id="billing" class="page">
+<div class="panel"><h2>🧾 Create New Bill</h2>
+<div class="form"><input id="bname" placeholder="Customer name"><input id="bphone" placeholder="Mobile number">
+<input id="bservice" placeholder="Service"><input id="bamount" type="number" placeholder="Amount ₹">
+<select id="bpay"><option>Cash</option><option>UPI</option><option>Card</option></select><input id="bnote" placeholder="Note (optional)">
+</div><br><button class="primary" onclick="createBill()">Generate Bill</button>
+<div id="billMsg"></div></div>
+</section>
+
+<section id="services" class="page"><div class="panel"><h2>🛠️ Services</h2><table class="table"><tr><th>Service</th><th>Price</th></tr><tr><td>Aadhaar Services</td><td>₹50</td></tr><tr><td>PAN Card</td><td>₹100</td></tr><tr><td>EPIC / Voter ID</td><td>₹50</td></tr><tr><td>Print / Scan</td><td>₹10</td></tr><tr><td>Online Form</td><td>₹50</td></tr></table></div></section>
+
+<section id="history" class="page"><div class="panel"><h2>🕐 Billing History</h2>
+<input id="historySearch" oninput="renderHistory()" placeholder="Search customer/service..." style="padding:12px;border:1px solid #d8e0ec;border-radius:9px;width:100%;margin-bottom:12px">
+<table class="table"><thead><tr><th>Date</th><th>Customer</th><th>Service</th><th>Amount</th><th>Action</th></tr></thead><tbody id="historyRows"></tbody></table></div></section>
+
+<section id="reports" class="page"><div class="panel"><h2>📊 Reports</h2><p>Total income: <b>₹<span id="reportIncome">0</span></b></p><p>Total bills: <b id="reportBills">0</b></p></div></section>
+
+<section id="settings" class="page"><div class="panel"><h2>⚙️ Shop Settings</h2><div class="form"><input value="Nexa Computer" placeholder="Shop name"><input placeholder="Mobile number"><input placeholder="Address"><input id="shopGST" placeholder="GST number"><input id="upiId" placeholder="UPI ID e.g. nexacomputer@upi"><input id="upiName" value="Nexa Computer" placeholder="UPI display name"></div><br><button class="primary" onclick="saveSettings()">Save Settings</button><p id="settingsMsg"></p></div></section>
+</main>
+</div>
+
+<script>
+let bills=JSON.parse(localStorage.getItem('nexaBills')||'[]');
+let customers=JSON.parse(localStorage.getItem('nexaCustomers')||'[]');
+let settings=JSON.parse(localStorage.getItem('nexaSettings')||'{}');
+function showPage(id,btn){document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));document.getElementById(id).classList.add('active');document.querySelectorAll('.nav button').forEach(x=>x.classList.remove('active'));if(btn)btn.classList.add('active');render();}
+function addCustomer(){let n=document.getElementById('cname').value.trim(),p=document.getElementById('cphone').value.trim();if(!n)return alert('Customer name enter karein');customers.push({n,p});localStorage.setItem('nexaCustomers',JSON.stringify(customers));document.getElementById('cname').value='';document.getElementById('cphone').value='';render();}
+function createBill(){
+let n=document.getElementById('bname').value.trim()||'Walk-in Customer',
+phone=document.getElementById('bphone').value.trim(),
+s=document.getElementById('bservice').value.trim(),
+a=Number(document.getElementById('bamount').value),
+pay=document.getElementById('bpay').value,
+note=document.getElementById('bnote').value.trim();
+if(!s||!a)return alert('Service aur amount enter karein');
+let bill={id:Date.now(),date:new Date().toLocaleString('en-IN'),n,phone,s,a,pay,note};
+bills.push(bill);localStorage.setItem('nexaBills',JSON.stringify(bills));
+document.getElementById('billMsg').innerHTML='<p class="badge">Bill generated successfully ✓</p> <button class="primary" onclick="printBill('+bill.id+')">🖨️ Print Invoice</button>';
+render();
+}
+function render(){let total=bills.reduce((x,b)=>x+b.a,0);document.getElementById('income').textContent=total;document.getElementById('monthly').textContent=total;document.getElementById('bills').textContent=bills.length;document.getElementById('customersCount').textContent=customers.length;document.getElementById('reportIncome').textContent=total;document.getElementById('reportBills').textContent=bills.length;
+document.getElementById('customerRows').innerHTML=customers.map(c=>`<tr><td>${c.n}</td><td>${c.p}</td></tr>`).join('');
+renderHistory();
+document.getElementById('topServices').textContent=bills.length?bills[bills.length-1].s:'No billing data yet.'}
+function renderHistory(){
+let q=(document.getElementById('historySearch')?.value||'').toLowerCase();
+let rows=bills.slice().reverse().filter(b=>(b.n+' '+b.s+' '+(b.phone||'')).toLowerCase().includes(q));
+document.getElementById('historyRows').innerHTML=rows.map(b=>`<tr><td>${b.date}</td><td>${b.n}</td><td>${b.s}</td><td>₹${b.a}</td><td><button onclick="printBill(${b.id})">🖨️</button> <button onclick="deleteBill(${b.id})">🗑️</button></td></tr>`).join('');
+}
+function deleteBill(id){if(!confirm('Delete this bill?'))return;bills=bills.filter(b=>b.id!==id);localStorage.setItem('nexaBills',JSON.stringify(bills));render();}
+function printBill(id){
+let b=bills.find(x=>x.id===id); if(!b)return;
+let win=window.open('','_blank','width=800,height=900');
+win.document.write(`<html><head><title>Nexa Computer Invoice</title><style>
+body{font-family:Arial;padding:35px;color:#172033} .invoice{max-width:700px;margin:auto;border:1px solid #ddd;padding:30px}
+h1{margin:0;color:#1759ea}.head{display:flex;justify-content:space-between;border-bottom:2px solid #1759ea;padding-bottom:20px}
+table{width:100%;border-collapse:collapse;margin-top:25px}td,th{padding:12px;border-bottom:1px solid #ddd;text-align:left}
+.total{text-align:right;font-size:22px;font-weight:bold;margin-top:20px}.qr{text-align:center;margin-top:25px;font-size:12px}
+</style></head><body><div class="invoice"><div class="head"><div><h1>NEXA COMPUTER</h1><p>Computer & Online Services</p></div><div><b>INVOICE</b><br>${b.date}</div></div>
+<p><b>Customer:</b> ${b.n}<br><b>Mobile:</b> ${b.phone||'-'}</p>
+<table><tr><th>Service</th><th>Payment</th><th>Amount</th></tr><tr><td>${b.s}</td><td>${b.pay}</td><td>₹${b.a}</td></tr></table>
+<div class="total">Total: ₹${b.a}</div><p>${b.note||''}</p><div class="qr">UPI / QR PAYMENT<br><br>Scan with your UPI app</div>
+<p style="text-align:center;margin-top:35px">Thank you for visiting Nexa Computer</p></div><script>window.print()<\/script></body></html>`);
+win.document.close();
+}
+function toggleDark(){document.body.style.background=document.body.style.background==='#111827'?'#f3f6fb':'#111827';document.body.style.color=document.body.style.color==='white'?'#18233a':'white';document.querySelectorAll('.panel,.card').forEach(x=>{x.style.background=x.style.background==='rgb(31, 41, 55)'?'#fff':'#1f2937'});}
+render();
+function login(){if(document.getElementById('loginUser').value==='admin'&&document.getElementById('loginPass').value==='1234'){document.getElementById('loginGate').style.display='none';localStorage.setItem('nexaLoggedIn','1')}else alert('Wrong username or password')}if(localStorage.getItem('nexaLoggedIn')==='1')document.getElementById('loginGate').style.display='none';</script>
+</body>
+</html>
