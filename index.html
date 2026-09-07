@@ -1,280 +1,40 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Nexa Computer - Computer, printing, online and digital services in Azad Nagar, Belgaum.">
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Nexa Computer - Computer, Printing and Online Services in Azad Nagar, Belgaum">
 <title>Nexa Computer | Azad Nagar, Belgaum</title>
 <style>
-:root{
-  --navy:#071a33;--blue:#0b63f6;--cyan:#18b7ff;--text:#12233d;--muted:#66758a;
-  --light:#f5f8fc;--white:#fff;--border:#e5ebf3;--shadow:0 18px 50px rgba(7,26,51,.10);
-}
-*{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
-body{font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:var(--text);background:#fff;line-height:1.6}
-a{text-decoration:none;color:inherit}
-.container{width:min(1160px,92%);margin:auto}
-.topbar{background:var(--navy);color:#dbe8f8;font-size:13px}
-.topbar .container{display:flex;justify-content:space-between;gap:20px;padding:9px 0;flex-wrap:wrap}
-.topbar span{display:inline-flex;align-items:center;gap:7px}
-header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.94);backdrop-filter:blur(14px);border-bottom:1px solid rgba(229,235,243,.9)}
-.nav{height:76px;display:flex;align-items:center;justify-content:space-between;gap:20px}
-.logo{display:flex;align-items:center;gap:11px;font-weight:900;font-size:20px;color:var(--navy)}
-.logo-mark{width:42px;height:42px;border-radius:12px;background:linear-gradient(135deg,var(--blue),var(--cyan));color:#fff;display:grid;place-items:center;box-shadow:0 9px 22px rgba(11,99,246,.25)}
-.logo-mark span{font-weight:900;font-size:18px}
-nav{display:flex;align-items:center;gap:28px}
-nav a{font-size:14px;font-weight:700;color:#40506a}
-nav a:hover{color:var(--blue)}
-.nav-cta{background:var(--blue);color:#fff!important;padding:11px 17px;border-radius:11px;box-shadow:0 9px 22px rgba(11,99,246,.20)}
-.menu{display:none;border:0;background:#eef5ff;border-radius:10px;padding:10px 12px;font-size:20px}
-.hero{position:relative;overflow:hidden;background:linear-gradient(135deg,#f7fbff 0%,#eef6ff 55%,#eafaff 100%);padding:78px 0 72px}
-.hero:before,.hero:after{content:"";position:absolute;border-radius:50%;filter:blur(2px);opacity:.45}
-.hero:before{width:420px;height:420px;background:#cfe6ff;right:-150px;top:-180px}
-.hero:after{width:300px;height:300px;background:#d9f7ff;left:-130px;bottom:-170px}
-.hero-grid{position:relative;z-index:1;display:grid;grid-template-columns:1.02fr .98fr;gap:52px;align-items:center}
-.badge{display:inline-flex;align-items:center;gap:8px;padding:7px 12px;background:#fff;border:1px solid #dcecff;border-radius:999px;color:var(--blue);font-weight:800;font-size:12px;box-shadow:0 8px 24px rgba(7,26,51,.06)}
-h1{font-size:clamp(40px,5.2vw,68px);line-height:1.03;letter-spacing:-2.2px;margin:18px 0 17px;color:var(--navy)}
-h1 em{font-style:normal;background:linear-gradient(90deg,var(--blue),#00a9df);-webkit-background-clip:text;background-clip:text;color:transparent}
-.hero p{font-size:18px;color:var(--muted);max-width:620px}
-.actions{display:flex;gap:12px;flex-wrap:wrap;margin:27px 0 25px}
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:13px 19px;border-radius:12px;font-weight:800;font-size:14px;transition:.2s;cursor:pointer}
-.btn:hover{transform:translateY(-2px)}
-.btn-primary{background:var(--blue);color:#fff;box-shadow:0 12px 25px rgba(11,99,246,.22)}
-.btn-secondary{background:#fff;border:1px solid #dbe6f2;color:var(--navy)}
-.quick{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;max-width:590px}
-.quick div{background:#fff;border:1px solid #e4edf7;padding:12px;border-radius:13px;font-size:12px;font-weight:800;box-shadow:0 7px 22px rgba(7,26,51,.05)}
-.hero-card{background:#fff;border:1px solid #e1ebf5;border-radius:26px;padding:14px;box-shadow:var(--shadow);transform:rotate(1deg)}
-.mock-shop{height:405px;border-radius:18px;background:
-linear-gradient(145deg,rgba(7,26,51,.06),rgba(11,99,246,.10)),
-linear-gradient(135deg,#e8f5ff,#fff);position:relative;overflow:hidden;display:flex;align-items:flex-end;padding:24px}
-.mock-shop:before{content:"NEXA";position:absolute;top:46px;left:50%;transform:translateX(-50%);font-size:52px;font-weight:950;letter-spacing:5px;color:#0b63f6;opacity:.10}
-.desk{width:100%;height:125px;background:#dce7f2;border-radius:16px 16px 7px 7px;position:relative;box-shadow:0 20px 30px rgba(7,26,51,.08)}
-.monitor{position:absolute;width:145px;height:90px;background:#10243d;border-radius:8px;left:50%;top:-73px;transform:translateX(-50%);border:6px solid #c9d6e4}
-.monitor:after{content:"NEXA COMPUTER";display:grid;place-items:center;height:100%;font-size:10px;font-weight:800;color:#58c7ff}
-.badge-float{position:absolute;right:20px;top:20px;background:#fff;padding:11px 14px;border-radius:12px;font-size:12px;font-weight:900;box-shadow:0 10px 28px rgba(7,26,51,.12)}
-.section{padding:82px 0}
-.section.alt{background:var(--light)}
-.center{text-align:center}
-.kicker{color:var(--blue);font-size:12px;font-weight:900;letter-spacing:1.7px;text-transform:uppercase}
-.section h2{font-size:clamp(29px,4vw,43px);line-height:1.12;color:var(--navy);margin:9px 0 12px;letter-spacing:-1px}
-.section-lead{color:var(--muted);max-width:690px;margin:0 auto 38px}
-.services{display:grid;grid-template-columns:repeat(5,1fr);gap:16px}
-.card{background:#fff;border:1px solid var(--border);border-radius:18px;padding:23px 17px;box-shadow:0 10px 30px rgba(7,26,51,.05);transition:.25s}
-.card:hover{transform:translateY(-5px);box-shadow:0 17px 38px rgba(7,26,51,.10);border-color:#cfe2fb}
-.icon{width:48px;height:48px;border-radius:14px;background:#edf5ff;color:var(--blue);display:grid;place-items:center;font-size:22px;margin-bottom:15px}
-.card h3{font-size:15px;color:var(--navy);margin-bottom:5px}
-.card p{font-size:12px;color:var(--muted)}
-.about{display:grid;grid-template-columns:.9fr 1.1fr;gap:55px;align-items:center}
-.about-art{min-height:390px;border-radius:25px;background:linear-gradient(145deg,#071a33,#0b63f6);padding:28px;color:#fff;position:relative;overflow:hidden;box-shadow:var(--shadow)}
-.about-art:after{content:"";position:absolute;width:280px;height:280px;border-radius:50%;background:#18b7ff;opacity:.18;right:-90px;bottom:-100px}
-.about-logo{font-size:65px;font-weight:950;letter-spacing:5px;margin-top:55px}
-.about-art small{display:block;color:#bfe9ff;margin-top:8px}
-.about-list{margin-top:23px;display:grid;gap:12px}
-.about-list div{display:flex;gap:10px;align-items:flex-start;color:#dce9f8;font-size:14px}
-.about-list b{color:#fff}
-.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
-.contact-card{border:1px solid var(--border);border-radius:21px;padding:28px;background:#fff;box-shadow:0 12px 35px rgba(7,26,51,.06)}
-.contact-item{display:flex;gap:14px;margin:20px 0}
-.contact-item .icon{margin:0;flex:0 0 48px}
-.contact-item h3{font-size:14px;margin-bottom:2px}
-.contact-item p{font-size:13px;color:var(--muted)}
-.map{min-height:100%;border-radius:21px;background:linear-gradient(135deg,#e9f5ff,#f6fbff);border:1px solid #dceaf7;display:flex;align-items:center;justify-content:center;text-align:center;padding:35px}
-.map-box{max-width:350px}
-.map-box .big{font-size:45px}
-footer{background:#06162b;color:#cbd8e8;padding:52px 0 22px}
-.footer-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:45px}
-footer .logo{color:#fff}
-footer .logo-mark{box-shadow:none}
-footer h3{color:#fff;font-size:14px;margin-bottom:13px}
-footer a,footer p{font-size:13px;color:#aebfd3;display:block;margin:7px 0}
-.copyright{border-top:1px solid rgba(255,255,255,.10);margin-top:35px;padding-top:18px;font-size:12px;color:#8499b2;display:flex;justify-content:space-between;gap:15px;flex-wrap:wrap}
-.floating{position:fixed;right:18px;bottom:18px;z-index:60;display:flex;flex-direction:column;gap:9px}
-.float-btn{width:50px;height:50px;border-radius:50%;display:grid;place-items:center;color:#fff;font-size:20px;box-shadow:0 10px 24px rgba(0,0,0,.18)}
-.whatsapp{background:#18b85b}.call{background:#0b63f6}
-@media(max-width:900px){
-  nav{display:none}.menu{display:block}
-  .hero-grid,.about,.contact-grid{grid-template-columns:1fr}
-  .hero{padding:58px 0}.hero-card{max-width:650px;margin:auto}
-  .services{grid-template-columns:repeat(2,1fr)}
-  .footer-grid{grid-template-columns:1fr 1fr}
-}
-@media(max-width:560px){
-  .topbar .container{justify-content:center;text-align:center}
-  .nav{height:66px}.logo{font-size:17px}.logo-mark{width:38px;height:38px}
-  h1{letter-spacing:-1.5px}.hero p{font-size:16px}
-  .quick{grid-template-columns:1fr}.services{grid-template-columns:1fr}
-  .section{padding:62px 0}.mock-shop{height:300px}
-  .about-art{min-height:300px}.about-logo{font-size:45px}
-  .footer-grid{grid-template-columns:1fr}
-}
-</style>
-</head>
-<body>
-
-<div class="topbar">
-  <div class="container">
-    <span>📍 Azad Nagar, Belgaum, Karnataka</span>
-    <span>📞 7058680876 &nbsp; • &nbsp; Mon–Sat 9:00 AM–8:00 PM</span>
-  </div>
-</div>
-
-<header>
-  <div class="container nav">
-    <a class="logo" href="#home">
-      <div class="logo-mark"><span>NX</span></div>
-      NEXA COMPUTER
-    </a>
-    <nav>
-      <a href="#home">Home</a>
-      <a href="#about">About</a>
-      <a href="#services">Services</a>
-      <a href="#contact">Contact</a>
-      <a class="nav-cta" href="https://wa.me/917058680876?text=Hello%20Nexa%20Computer" target="_blank">WhatsApp Us</a>
-    </nav>
-    <button class="menu" onclick="toggleMenu()" aria-label="Open menu">☰</button>
-  </div>
-</header>
-
-<main id="home">
-<section class="hero">
-  <div class="container hero-grid">
-    <div>
-      <span class="badge">✦ Your Trusted Digital Service Partner</span>
-      <h1>NEXA <em>COMPUTER</em></h1>
-      <p>Computer, printing, online and digital services — all in one convenient place in Azad Nagar, Belgaum.</p>
-      <div class="actions">
-        <a class="btn btn-primary" href="tel:7058680876">📞 Call Now</a>
-        <a class="btn btn-secondary" href="https://wa.me/917058680876?text=Hello%20Nexa%20Computer" target="_blank">💬 WhatsApp</a>
-      </div>
-      <div class="quick">
-        <div>💻 Computer Services</div>
-        <div>🖨️ Printing & Xerox</div>
-        <div>🌐 Online Services</div>
-      </div>
-    </div>
-    <div class="hero-card">
-      <div class="mock-shop">
-        <div class="badge-float">Fast • Reliable • Local</div>
-        <div class="desk"><div class="monitor"></div></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="section" id="services">
-  <div class="container">
-    <div class="center">
-      <div class="kicker">What We Offer</div>
-      <h2>Our Services</h2>
-      <p class="section-lead">Convenient computer, document, printing and digital support for everyday needs.</p>
-    </div>
-    <div class="services">
-      <div class="card"><div class="icon">💻</div><h3>Computer & Laptop</h3><p>Setup, software and basic technical support.</p></div>
-      <div class="card"><div class="icon">🖨️</div><h3>Printing & Xerox</h3><p>Printing, photocopy, scanning and document work.</p></div>
-      <div class="card"><div class="icon">🌐</div><h3>Online Services</h3><p>Help with online forms and digital applications.</p></div>
-      <div class="card"><div class="icon">🪪</div><h3>PAN Card Help</h3><p>Guidance for PAN-related online services.</p></div>
-      <div class="card"><div class="icon">🧾</div><h3>Bill Payments</h3><p>Convenient assistance with online bill services.</p></div>
-      <div class="card"><div class="icon">📄</div><h3>Document Support</h3><p>Typing, formatting and document assistance.</p></div>
-      <div class="card"><div class="icon">🎓</div><h3>Student Services</h3><p>Online applications, printouts and project support.</p></div>
-      <div class="card"><div class="icon">🖥️</div><h3>Computer Accessories</h3><p>Useful accessories and computer essentials.</p></div>
-      <div class="card"><div class="icon">🛠️</div><h3>Technical Support</h3><p>Basic troubleshooting and computer assistance.</p></div>
-      <div class="card"><div class="icon">📑</div><h3>ID & Applications</h3><p>Help preparing and submitting digital applications.</p></div>
-    </div>
-  </div>
-</section>
-
-<section class="section alt" id="about">
-  <div class="container about">
-    <div class="about-art">
-      <div class="kicker" style="color:#73d8ff">About Nexa Computer</div>
-      <div class="about-logo">NEXA</div>
-      <strong>Computer • Print • Online • Digital</strong>
-      <small>Azad Nagar, Belgaum</small>
-    </div>
-    <div>
-      <div class="kicker">Why Nexa Computer</div>
-      <h2>Your Local Digital Partner</h2>
-      <p style="color:var(--muted)">Nexa Computer is designed to make everyday computer, printing, document and online service needs simple and convenient.</p>
-      <div class="about-list">
-        <div>✓ <span><b>One place for many services</b><br>Computer, print, document and online assistance.</span></div>
-        <div>✓ <span><b>Simple & convenient</b><br>Friendly help for everyday digital tasks.</span></div>
-        <div>✓ <span><b>Easy to reach</b><br>Located in Azad Nagar, Belgaum.</span></div>
-        <div>✓ <span><b>Direct support</b><br>Call or WhatsApp whenever you need assistance.</span></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="section" id="contact">
-  <div class="container">
-    <div class="center">
-      <div class="kicker">Get In Touch</div>
-      <h2>Visit Nexa Computer</h2>
-      <p class="section-lead">Have a question or need a service? Call or WhatsApp us directly.</p>
-    </div>
-    <div class="contact-grid">
-      <div class="contact-card">
-        <div class="contact-item">
-          <div class="icon">📍</div>
-          <div><h3>Location</h3><p>Azad Nagar, Belgaum, Karnataka</p></div>
-        </div>
-        <div class="contact-item">
-          <div class="icon">📞</div>
-          <div><h3>Phone</h3><p><a href="tel:7058680876">7058680876</a></p></div>
-        </div>
-        <div class="contact-item">
-          <div class="icon">💬</div>
-          <div><h3>WhatsApp</h3><p>Message us for quick assistance.</p></div>
-        </div>
-        <div class="actions">
-          <a class="btn btn-primary" href="tel:7058680876">Call Now</a>
-          <a class="btn btn-secondary" target="_blank" href="https://wa.me/917058680876?text=Hello%20Nexa%20Computer">WhatsApp</a>
-        </div>
-      </div>
-      <div class="map">
-        <div class="map-box">
-          <div class="big">📍</div>
-          <h3 style="font-size:22px;color:var(--navy);margin:7px 0">Azad Nagar, Belgaum</h3>
-          <p style="color:var(--muted);margin-bottom:20px">Open Google Maps for directions to Nexa Computer.</p>
-          <a class="btn btn-primary" target="_blank" href="https://www.google.com/maps/search/?api=1&query=Nexa+Computer+Azad+Nagar+Belgaum">Get Directions</a>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-</main>
-
-<footer>
-  <div class="container">
-    <div class="footer-grid">
-      <div>
-        <a class="logo" href="#home"><div class="logo-mark"><span>NX</span></div>NEXA COMPUTER</a>
-        <p style="margin-top:15px;max-width:360px">Your local partner for computer, printing, document and digital services in Azad Nagar, Belgaum.</p>
-      </div>
-      <div><h3>Quick Links</h3><a href="#home">Home</a><a href="#about">About</a><a href="#services">Services</a><a href="#contact">Contact</a></div>
-      <div><h3>Contact</h3><a href="tel:7058680876">7058680876</a><a target="_blank" href="https://wa.me/917058680876">WhatsApp</a><a target="_blank" href="https://www.google.com/maps/search/?api=1&query=Nexa+Computer+Azad+Nagar+Belgaum">Directions</a></div>
-    </div>
-    <div class="copyright"><span>© 2026 Nexa Computer. All rights reserved.</span><span>Azad Nagar • Belgaum</span></div>
-  </div>
-</footer>
-
-<div class="floating">
-  <a class="float-btn whatsapp" href="https://wa.me/917058680876?text=Hello%20Nexa%20Computer" target="_blank" aria-label="WhatsApp">✆</a>
-  <a class="float-btn call" href="tel:7058680876" aria-label="Call">☎</a>
-</div>
-
+:root{--n:#061a33;--b:#0878f9;--g:#16b85b;--t:#122640;--m:#687a91;--l:#e5edf6}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font-family:Arial,sans-serif;color:var(--t);line-height:1.55}a{text-decoration:none;color:inherit}.w{width:min(1180px,92%);margin:auto}
+.top{background:var(--n);color:#dbe8f8;font-size:13px}.top .w{display:flex;justify-content:space-between;padding:8px 0;gap:12px;flex-wrap:wrap}
+header{position:sticky;top:0;z-index:9;background:#fffffff5;backdrop-filter:blur(12px);border-bottom:1px solid var(--l)}.nav{height:74px;display:flex;align-items:center;justify-content:space-between}.logo{display:flex;align-items:center;gap:10px;font-weight:900;font-size:20px}.mark{width:43px;height:43px;border-radius:12px;background:linear-gradient(135deg,var(--n),var(--b));color:#fff;display:grid;place-items:center;font-size:23px;font-weight:900}.tag{display:block;font-size:8px;letter-spacing:1px;color:#718198;margin-top:-2px}nav{display:flex;align-items:center;gap:23px}nav a{font-size:14px;font-weight:800;color:#40526a}nav a:hover{color:var(--b)}.wa{background:var(--g);color:#fff!important;padding:12px 16px;border-radius:10px}.menu{display:none;border:0;background:#edf5ff;padding:10px;border-radius:9px;font-size:20px}
+.hero{background:linear-gradient(120deg,#061a33,#08427a 60%,#0a82e8);color:#fff;overflow:hidden}.hero .w{display:grid;grid-template-columns:1fr 1.05fr;min-height:470px}.copy{padding:70px 0}.ey{color:#42c6ff;font-size:13px;font-weight:900;letter-spacing:2px;text-transform:uppercase}.hero h1{font-size:clamp(44px,6vw,70px);line-height:1;letter-spacing:-2px;margin:13px 0}.hero h1 span{color:#1599ff}.hero p{font-size:18px;color:#dce9f8;max-width:600px}.actions{display:flex;gap:12px;flex-wrap:wrap;margin:25px 0}.btn{display:inline-block;padding:13px 19px;border-radius:10px;font-size:14px;font-weight:900;border:1px solid transparent}.primary{background:var(--b);color:#fff}.outline{border-color:#fff;color:#fff}.hf{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:25px;text-align:center;font-size:11px;font-weight:800}.hf b{display:block;font-size:25px}.art{display:grid;place-items:center;background:#ffffff12}.shop{width:84%;height:360px;border-radius:24px;background:linear-gradient(145deg,#eaf6ff,#fff);box-shadow:0 30px 60px #00152f66;position:relative}.sign{position:absolute;top:25px;left:12%;right:12%;height:90px;background:var(--b);border-radius:13px;color:#fff;display:grid;place-items:center;font-weight:900;font-size:25px}.counter{position:absolute;left:8%;right:8%;bottom:25px;height:105px;border-radius:12px;background:linear-gradient(#fff,#d8e4ef)}.screen{position:absolute;width:120px;height:76px;left:50%;top:-63px;transform:translateX(-50%);background:#09213c;border:6px solid #c5d4e2;border-radius:7px;color:#3dc7ff;display:grid;place-items:center;font-size:9px;font-weight:900}
+.stats{border-bottom:1px solid var(--l);box-shadow:0 8px 25px #071b3508}.stats .w{display:grid;grid-template-columns:repeat(4,1fr)}.stat{padding:22px 15px;text-align:center;border-right:1px solid var(--l)}.stat:last-child{border:0}.stat b{display:block;color:var(--n);font-size:22px}.stat span{font-size:12px;color:var(--m)}
+.sec{padding:78px 0}.alt{background:#f5f8fc}.k{color:var(--b);font-size:12px;font-weight:900;letter-spacing:2px;text-transform:uppercase}.title{font-size:clamp(30px,4vw,44px);line-height:1.1;margin:7px 0 12px;color:var(--n)}.lead{color:var(--m);max-width:700px;margin-bottom:32px}.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}.card{background:#fff;border:1px solid var(--l);border-radius:15px;padding:20px;box-shadow:0 8px 25px #071b3508;transition:.2s}.card:hover{transform:translateY(-4px);box-shadow:0 18px 40px #071b3518}.ico{width:48px;height:48px;border-radius:13px;background:#edf6ff;display:grid;place-items:center;font-size:23px;margin-bottom:13px}.card h3{font-size:15px;margin:0 0 5px}.card p{font-size:12px;color:var(--m);margin:0}
+.brands{margin-top:25px;padding:20px;background:#fff;border:1px solid var(--l);border-radius:14px;display:flex;gap:27px;align-items:center;flex-wrap:wrap}.brands b{font-size:12px}.brand{font-weight:900;color:#63758b;font-size:18px}
+.about{display:grid;grid-template-columns:1fr 1fr;gap:55px;align-items:center}.aboutbox{height:350px;border-radius:24px;background:linear-gradient(135deg,var(--n),var(--b));color:#fff;padding:32px;position:relative;overflow:hidden}.aboutbox:after{content:"N";position:absolute;font-size:300px;font-weight:900;right:-30px;bottom:-130px;color:#ffffff14}.nx{font-size:58px;font-weight:900;letter-spacing:4px;margin-top:55px}.ticks{display:grid;gap:13px;margin-top:20px}.ticks div{font-size:14px}
+.gallery{display:grid;grid-template-columns:1.3fr 1fr 1fr;grid-template-rows:150px 150px;gap:12px}.photo{border-radius:14px;border:1px solid var(--l);background:linear-gradient(135deg,#dcecff,#fff);display:grid;place-items:center;text-align:center;color:#58718e;font-weight:900}.photo:first-child{grid-row:span 2;background:linear-gradient(135deg,#0a4d88,#16a8ef);color:#fff;font-size:21px}
+.reviews{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.review{background:#fff;border:1px solid var(--l);border-radius:15px;padding:21px}.person{display:flex;gap:10px;align-items:center}.av{width:40px;height:40px;border-radius:50%;background:#e9edff;color:#2746d7;display:grid;place-items:center;font-weight:900}.stars{color:#ffac00}.review p{color:var(--m);font-size:13px}
+.contact{display:grid;grid-template-columns:.8fr 1.2fr;gap:20px}.box{background:#fff;border:1px solid var(--l);border-radius:18px;padding:27px}.row{display:flex;gap:12px;margin:20px 0}.row .ico{flex:0 0 48px;margin:0}.row h3{font-size:14px;margin:0}.row p{font-size:13px;color:var(--m);margin:2px 0}.formgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px}input,select,textarea{width:100%;padding:13px;border:1px solid #d6e2ef;border-radius:9px;font:inherit;box-sizing:border-box}textarea{min-height:105px;margin-top:12px}.full{grid-column:1/-1}.send{width:100%;margin-top:12px;border:0;border-radius:9px;padding:13px;background:var(--b);color:#fff;font-weight:900;cursor:pointer}
+footer{background:#06172d;color:#b7c8db;padding:48px 0 20px}.foot{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:30px}.foot h3{color:#fff;font-size:14px}.foot a,.foot p{font-size:13px;margin:7px 0;display:block}.copy{border-top:1px solid #ffffff18;margin-top:30px;padding-top:17px;font-size:11px;display:flex;justify-content:space-between;flex-wrap:wrap}.float{position:fixed;right:18px;bottom:18px;z-index:20;display:flex;flex-direction:column;gap:9px}.float a{width:50px;height:50px;border-radius:50%;display:grid;place-items:center;color:#fff;font-size:21px;box-shadow:0 10px 25px #0003}.fw{background:var(--g)}.fc{background:var(--b)}
+@media(max-width:950px){nav{display:none}.menu{display:block}.hero .w,.about,.contact{grid-template-columns:1fr}.art{min-height:390px}.grid{grid-template-columns:repeat(2,1fr)}.stats .w{grid-template-columns:repeat(2,1fr)}.stat:nth-child(2){border-right:0}.reviews{grid-template-columns:1fr}.foot{grid-template-columns:1fr 1fr}}
+@media(max-width:580px){.top .w{justify-content:center;text-align:center}.nav{height:66px}.hero h1{font-size:45px}.copy{padding:50px 0}.hf{grid-template-columns:repeat(2,1fr)}.shop{height:285px}.grid{grid-template-columns:1fr}.sec{padding:60px 0}.gallery{grid-template-columns:1fr 1fr;grid-template-rows:130px 130px}.photo:first-child{grid-column:span 2;grid-row:auto}.formgrid{grid-template-columns:1fr}.full{grid-column:auto}.foot{grid-template-columns:1fr}}
+</style></head><body>
+<div class="top"><div class="w"><span>📍 Azad Nagar, Belgaum - 590016, Karnataka</span><span>📞 7058680876 • 🕘 Mon–Sat 9:00 AM–8:00 PM</span></div></div>
+<header><div class="w nav"><a class="logo" href="#home"><div class="mark">N</div><div>NEXA COMPUTER<span class="tag">COMPUTERS | PRINTING | ONLINE SERVICES</span></div></a><nav><a href="#home">Home</a><a href="#about">About</a><a href="#services">Services</a><a href="#products">Products</a><a href="#gallery">Gallery</a><a href="#contact">Contact</a><a class="wa" target="_blank" href="https://wa.me/917058680876?text=Hello%20Nexa%20Computer">◉ WhatsApp Us</a></nav><button class="menu" onclick="toggle()">☰</button></div></header>
+<section class="hero" id="home"><div class="w"><div class="copy"><div class="ey">Your Local Tech Partner</div><h1>NEXA <span>COMPUTER</span></h1><p>All Your Computer, Printing & Online Services Under One Roof.</p><div class="actions"><a class="btn primary" href="tel:7058680876">☎ Call Now</a><a class="btn outline" target="_blank" href="https://wa.me/917058680876?text=Hello%20Nexa%20Computer">◉ Chat on WhatsApp</a></div><div class="hf"><div><b>💻</b>Computer Services</div><div><b>🖨️</b>Printing & Xerox</div><div><b>🌐</b>Online Services</div><div><b>📄</b>Document Support</div></div></div><div class="art"><div class="shop"><div class="sign">NEXA COMPUTER</div><div class="counter"><div class="screen">NEXA COMPUTER</div></div></div></div></div></section>
+<section class="stats"><div class="w"><div class="stat"><b>✓ Trusted</b><span>Local Service</span></div><div class="stat"><b>⚙ Multiple</b><span>Services Offered</span></div><div class="stat"><b>🛡 Secure</b><span>Customer Support</span></div><div class="stat"><b>★ Reliable</b><span>Everyday Assistance</span></div></div></section>
+<section class="sec" id="services"><div class="w"><div class="k">Our Services</div><h2 class="title">Everything You Need, In One Place</h2><p class="lead">Computer, printing, document and online digital support for everyday needs.</p><div class="grid">
+<div class="card"><div class="ico">💻</div><h3>Computer & Laptop</h3><p>Sales, service, repair, software and upgrades.</p></div><div class="card"><div class="ico">🖨️</div><h3>Printing & Xerox</h3><p>Color print, B/W print, Xerox and scanning.</p></div><div class="card"><div class="ico">🌐</div><h3>Online Services</h3><p>Online forms and digital application assistance.</p></div><div class="card"><div class="ico">🪪</div><h3>PAN Card Services</h3><p>PAN-related application guidance and support.</p></div><div class="card"><div class="ico">🆔</div><h3>Aadhaar Services</h3><p>Guidance for available Aadhaar-related services.</p></div><div class="card"><div class="ico">🛂</div><h3>Passport Services</h3><p>Application support and document guidance.</p></div><div class="card"><div class="ico">🧾</div><h3>Bill Payments</h3><p>Assistance with available online bill services.</p></div><div class="card"><div class="ico">⌨️</div><h3>Computer Accessories</h3><p>Printers, ink, peripherals and essentials.</p></div>
+</div><div class="brands"><b>Computer Brands & Accessories</b><span class="brand">HP</span><span class="brand">DELL</span><span class="brand">Lenovo</span><span class="brand">ASUS</span><span class="brand">Acer</span><span class="brand">Canon</span><span class="brand">EPSON</span></div></div></section>
+<section class="sec alt" id="about"><div class="w about"><div class="aboutbox"><div class="k" style="color:#7bdcff">About Nexa Computer</div><div class="nx">NEXA</div><b>COMPUTER</b><small style="display:block;color:#bfe7ff">Computers | Printing | Online Services</small></div><div><div class="k">Why Choose Us</div><h2 class="title">Your Local Digital Partner</h2><p class="lead">Nexa Computer brings everyday computer, printing, document and online service needs together in one convenient place.</p><div class="ticks"><div>✓ <b>Wide range of everyday services</b><br>Computer, printing, document and digital assistance.</div><div>✓ <b>Simple & convenient support</b><br>Friendly help for common digital tasks.</div><div>✓ <b>Easy to contact</b><br>Call or WhatsApp directly for assistance.</div></div></div></div></section>
+<section class="sec" id="products"><div class="w"><div class="k">Products & Essentials</div><h2 class="title">Computer Essentials</h2><p class="lead">Ask us about available computers, printers, accessories and digital essentials.</p><div class="grid"><div class="card"><div class="ico">💻</div><h3>Laptops & Computers</h3><p>Ask for current models and availability.</p></div><div class="card"><div class="ico">🖨️</div><h3>Printers</h3><p>Printing solutions and related support.</p></div><div class="card"><div class="ico">🖱️</div><h3>Peripherals</h3><p>Keyboard, mouse and useful accessories.</p></div><div class="card"><div class="ico">🖥️</div><h3>Computer Setup</h3><p>Basic setup, software and troubleshooting.</p></div></div></div></section>
+<section class="sec alt" id="gallery"><div class="w"><div class="k">Our Store</div><h2 class="title">Take a Look Inside</h2><p class="lead">A clean, professional place for your everyday digital needs.</p><div class="gallery"><div class="photo">NEXA COMPUTER<br>STORE</div><div class="photo">COMPUTERS</div><div class="photo">ACCESSORIES</div><div class="photo">PRINTERS</div><div class="photo">DIGITAL SERVICES</div></div></div></section>
+<section class="sec"><div class="w"><div class="k">Customer Reviews</div><h2 class="title">What Our Customers Say</h2><div class="reviews"><div class="review"><div class="person"><div class="av">C</div><b>Customer<br><span class="stars">★★★★★</span></b></div><p>Professional and helpful service. Very convenient for computer and online work.</p></div><div class="review"><div class="person"><div class="av">C</div><b>Customer<br><span class="stars">★★★★★</span></b></div><p>Quick support for printing and digital services. Good local service.</p></div><div class="review"><div class="person"><div class="av">C</div><b>Customer<br><span class="stars">★★★★★</span></b></div><p>A useful place for computer, document and online service needs.</p></div></div></div></section>
+<section class="sec alt" id="contact"><div class="w"><div class="k">Get In Touch</div><h2 class="title">Visit Our Store</h2><div class="contact"><div class="box"><div class="row"><div class="ico">📍</div><div><h3>Address</h3><p>Azad Nagar, Belgaum - 590016, Karnataka</p></div></div><div class="row"><div class="ico">📞</div><div><h3>Phone</h3><p><a href="tel:7058680876">7058680876</a></p></div></div><div class="row"><div class="ico">🕘</div><div><h3>Business Hours</h3><p>Mon - Sat : 9:00 AM - 8:00 PM</p></div></div><div class="actions"><a class="btn primary" href="tel:7058680876">☎ Call</a><a class="btn" style="background:#16b85b;color:#fff" target="_blank" href="https://wa.me/917058680876?text=Hello%20Nexa%20Computer">◉ WhatsApp</a><a class="btn" style="border-color:#c7d8e9" target="_blank" href="https://www.google.com/maps/search/?api=1&query=Nexa+Computer+Azad+Nagar+Belgaum">📍 Directions</a></div></div><div class="box"><h3>Send Us a Message</h3><p style="font-size:13px;color:var(--m)">Your message will open in WhatsApp.</p><div class="formgrid"><input id="name" placeholder="Your Name"><input id="mobile" placeholder="Your Mobile Number"><select id="service" class="full"><option value="">Select Service</option><option>Computer & Laptop</option><option>Printing & Xerox</option><option>Online Services</option><option>PAN Card Services</option><option>Aadhaar Services</option><option>Passport Services</option><option>Bill Payments</option><option>Computer Accessories</option></select></div><textarea id="msg" placeholder="Your Message"></textarea><button class="send" onclick="send()">➤ Send Message on WhatsApp</button></div></div></div></section>
+<footer><div class="w"><div class="foot"><div><a class="logo" style="color:#fff" href="#home"><div class="mark">N</div>NEXA COMPUTER</a><p>Computers | Printing | Online Services</p><p>Azad Nagar, Belgaum, Karnataka</p></div><div><h3>Quick Links</h3><a href="#home">Home</a><a href="#about">About</a><a href="#services">Services</a><a href="#products">Products</a><a href="#gallery">Gallery</a><a href="#contact">Contact</a></div><div><h3>Services</h3><a href="#services">Computer & Laptop</a><a href="#services">Printing & Xerox</a><a href="#services">Online Services</a><a href="#services">PAN / Aadhaar / Passport</a></div><div><h3>Contact</h3><a href="tel:7058680876">7058680876</a><a target="_blank" href="https://wa.me/917058680876">WhatsApp</a><a target="_blank" href="https://www.google.com/maps/search/?api=1&query=Nexa+Computer+Azad+Nagar+Belgaum">Directions</a></div></div><div class="copy"><span>© 2026 Nexa Computer. All rights reserved.</span><span>Azad Nagar, Belgaum - Karnataka</span></div></div></footer>
+<div class="float"><a class="fw" target="_blank" href="https://wa.me/917058680876?text=Hello%20Nexa%20Computer">◉</a><a class="fc" href="tel:7058680876">☎</a></div>
 <script>
-function toggleMenu(){
-  const nav=document.querySelector('nav');
-  const open=nav.style.display==='flex';
-  nav.style.display=open?'none':'flex';
-  if(!open){
-    nav.style.position='absolute';nav.style.top='66px';nav.style.left='4%';nav.style.right='4%';
-    nav.style.background='#fff';nav.style.padding='18px';nav.style.borderRadius='15px';
-    nav.style.flexDirection='column';nav.style.alignItems='stretch';nav.style.boxShadow='0 15px 35px rgba(7,26,51,.12)';
-  }
-}
-</script>
-</body>
-</html>
+function toggle(){let n=document.querySelector("nav");if(getComputedStyle(n).display==="none"){n.style.display="flex";n.style.position="absolute";n.style.top="66px";n.style.left="4%";n.style.right="4%";n.style.background="#fff";n.style.padding="18px";n.style.borderRadius="14px";n.style.flexDirection="column";n.style.alignItems="stretch";n.style.boxShadow="0 15px 35px #071b3520"}else n.style.display="none"}
+function send(){let n=document.getElementById("name").value||"Customer",m=document.getElementById("mobile").value||"",s=document.getElementById("service").value||"General Enquiry",x=document.getElementById("msg").value||"";let t=`Hello Nexa Computer,%0A%0AName: ${encodeURIComponent(n)}%0AMobile: ${encodeURIComponent(m)}%0AService: ${encodeURIComponent(s)}%0AMessage: ${encodeURIComponent(x)}`;window.open("https://wa.me/917058680876?text="+t,"_blank")}
+</script></body></html>
